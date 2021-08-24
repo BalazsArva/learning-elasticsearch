@@ -17,10 +17,39 @@ namespace ElasticSearchProductCatalog
                 await repo.InsertAsync(product);
             }
 
-            await SearchProductsAsync(repo);
+            // await SearchProductsAsync(repo);
+            await SearchAsync(repo);
 
             Console.WriteLine("All done.");
             Console.ReadKey();
+        }
+
+        private static async Task SearchAsync(ProductSearchRepository repo)
+        {
+            var titleSearch = new TextSearchParameter
+            {
+                SearchMethod = TextSearchMethod.ContainsAllTokens,
+                Value = "ASUS TUF Gaming GeForce RTX 3060 Ti 8GB GDDR6",
+            };
+
+            var searchRequest = new ProductSearchModel
+            {
+                Title = titleSearch,
+            };
+
+            var searchResults = await repo.SearchAsync(searchRequest);
+
+            Console.WriteLine("Search results:");
+            Console.WriteLine("----------------------------------------------------------------------------------");
+            foreach (var hit in searchResults)
+            {
+                var json = JsonConvert.SerializeObject(hit, Formatting.Indented);
+
+                Console.WriteLine(json);
+                Console.WriteLine();
+                Console.WriteLine("----------------------------------------------------------------------------------");
+                Console.WriteLine();
+            }
         }
 
         private static async Task SearchRtx3060TiCardsAsync(ElasticClient cli)
@@ -79,7 +108,7 @@ namespace ElasticSearchProductCatalog
                 Console.WriteLine();
             }
         }
-
+        /*
         private static async Task SearchProductsAsync(ProductSearchRepository repo)
         {
             var results = await repo.SearchAsync(new ProductSearchModel
@@ -114,5 +143,6 @@ namespace ElasticSearchProductCatalog
                 Console.WriteLine();
             }
         }
+        */
     }
 }

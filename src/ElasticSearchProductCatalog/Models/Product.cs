@@ -16,29 +16,4 @@ namespace ElasticSearchProductCatalog.Models
 
         public Dictionary<string, string> Properties { get; set; } = new();
     }
-
-    public class ProductSearchModel
-    {
-        public SearchParameter<bool> IsActive { get; set; }
-
-        public TextSearchParameter<string> Title { get; set; }
-
-        public TextSearchParameter<string> Category { get; set; }
-
-        public int Page { get; set; }
-
-        public int PageSize { get; set; }
-    }
-
-    public class SearchParameter<TValue>
-    {
-        public TValue Value { get; set; }
-    }
-
-    public class TextSearchParameter<TValue>
-    {
-        public TValue Value { get; set; }
-
-        public bool Exact { get; set; }
-    }
 }
