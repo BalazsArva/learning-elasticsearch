@@ -17,24 +17,88 @@ namespace ElasticSearchProductCatalog
                 await repo.InsertAsync(product);
             }
 
-            // await SearchProductsAsync(repo);
-            await SearchAsync(repo);
+            while (true)
+            {
+                Console.Clear();
 
-            Console.WriteLine("All done.");
-            Console.ReadKey();
+                await SearchAsync(repo);
+
+                Console.WriteLine();
+                Console.WriteLine("Done. Press any key to search again or 'q' to quit.");
+                Console.WriteLine();
+
+                if (Console.ReadKey().Key == ConsoleKey.Q)
+                {
+                    break;
+                }
+            }
+        }
+
+        private static TextSearchParameter GetSearchParameterFromConsole(string parameterName)
+        {
+            TextSearchMethod searchMethod;
+            var searchValue = string.Empty;
+
+            while (true)
+            {
+                Console.WriteLine($"Search mode for '{parameterName}':");
+                Console.WriteLine($"0 - Don't search for {parameterName}");
+                Console.WriteLine($"1 - Equals");
+                Console.WriteLine($"2 - Contains entire phrase");
+                Console.WriteLine($"3 - Contains all tokens");
+                Console.WriteLine($"4 - Contains any token");
+
+                var mode = Console.ReadLine().Trim();
+                if (mode == "0")
+                {
+                    return null;
+                }
+
+                if (mode == "1")
+                {
+                    searchMethod = TextSearchMethod.Equals;
+                    break;
+                }
+                else if (mode == "2")
+                {
+                    searchMethod = TextSearchMethod.ContainsEntirePhrase;
+                    break;
+                }
+                else if (mode == "3")
+                {
+                    searchMethod = TextSearchMethod.ContainsAllTokens;
+                    break;
+                }
+                else if (mode == "4")
+                {
+                    searchMethod = TextSearchMethod.ContainsAnyToken;
+                    break;
+                }
+                else
+                {
+                    Console.WriteLine("Invalid value.");
+                }
+            }
+
+            while (string.IsNullOrWhiteSpace(searchValue))
+            {
+                Console.WriteLine($"Search value for '{parameterName}':");
+                searchValue = Console.ReadLine();
+            }
+
+            return new TextSearchParameter
+            {
+                SearchMethod = searchMethod,
+                Value = searchValue,
+            };
         }
 
         private static async Task SearchAsync(ProductSearchRepository repo)
         {
-            var titleSearch = new TextSearchParameter
-            {
-                SearchMethod = TextSearchMethod.ContainsAllTokens,
-                Value = "ASUS TUF Gaming GeForce RTX 3060 Ti 8GB GDDR6",
-            };
-
             var searchRequest = new ProductSearchModel
             {
-                Title = titleSearch,
+                Title = GetSearchParameterFromConsole("Title"),
+                Category = GetSearchParameterFromConsole("Category"),
             };
 
             var searchResults = await repo.SearchAsync(searchRequest);
@@ -108,6 +172,7 @@ namespace ElasticSearchProductCatalog
                 Console.WriteLine();
             }
         }
+
         /*
         private static async Task SearchProductsAsync(ProductSearchRepository repo)
         {

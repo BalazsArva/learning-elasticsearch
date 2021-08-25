@@ -4,7 +4,7 @@
     {
         Equals,
         ContainsAllTokens,
-        ContainsAnyTokens,
+        ContainsAnyToken,
         ContainsEntirePhrase,
         ContainsTokenPrefix,
     }

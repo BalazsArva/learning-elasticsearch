@@ -95,7 +95,7 @@ namespace ElasticSearchProductCatalog
                 return query.Match(m => m.Field(propertySelector).Operator(Operator.And).Query(parameter.Value));
             }
 
-            if (parameter.SearchMethod == TextSearchMethod.ContainsAnyTokens)
+            if (parameter.SearchMethod == TextSearchMethod.ContainsAnyToken)
             {
                 return query.Match(m => m.Field(propertySelector).Operator(Operator.Or).Query(parameter.Value));
             }
