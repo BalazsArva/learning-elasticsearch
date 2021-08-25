@@ -37,8 +37,9 @@ namespace ElasticSearchProductCatalog
         {
             var searchRequest = new ProductSearchModel
             {
-                Title = GetSearchParameterFromConsole("Title"),
-                Category = GetSearchParameterFromConsole("Category"),
+                Title = GetTextSearchParameterFromConsole("Title"),
+                Category = GetTextSearchParameterFromConsole("Category"),
+                IsActive = GetBoolSearchParameterFromConsole("Is active"),
             };
 
             var searchResults = await repo.SearchAsync(searchRequest);
@@ -56,7 +57,7 @@ namespace ElasticSearchProductCatalog
             }
         }
 
-        private static TextSearchParameter GetSearchParameterFromConsole(string parameterName)
+        private static TextSearchParameter GetTextSearchParameterFromConsole(string parameterName)
         {
             TextSearchMethod searchMethod;
             var searchValue = string.Empty;
@@ -98,7 +99,9 @@ namespace ElasticSearchProductCatalog
                 }
                 else
                 {
-                    Console.WriteLine("Invalid value.");
+                    Console.WriteLine("Invalid value. Press any key to try again.");
+                    Console.ReadKey();
+                    Console.Clear();
                 }
             }
 
@@ -113,6 +116,38 @@ namespace ElasticSearchProductCatalog
                 SearchMethod = searchMethod,
                 Value = searchValue,
             };
+        }
+
+        private static SearchParameter<bool> GetBoolSearchParameterFromConsole(string parameterName)
+        {
+            while (true)
+            {
+                Console.WriteLine($"Search mode for '{parameterName}':");
+                Console.WriteLine($"0 - Don't search for {parameterName}");
+                Console.WriteLine($"1 - True");
+                Console.WriteLine($"2 - False");
+
+                var mode = Console.ReadLine().Trim();
+                if (mode == "0")
+                {
+                    return null;
+                }
+
+                if (mode == "1")
+                {
+                    return new SearchParameter<bool> { Value = true };
+                }
+                else if (mode == "2")
+                {
+                    return new SearchParameter<bool> { Value = false };
+                }
+                else
+                {
+                    Console.WriteLine("Invalid value. Press any key to try again.");
+                    Console.ReadKey();
+                    Console.Clear();
+                }
+            }
         }
     }
 }
