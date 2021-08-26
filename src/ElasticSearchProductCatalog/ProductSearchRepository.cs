@@ -76,23 +76,17 @@ namespace ElasticSearchProductCatalog
         {
             const string aggregationName = "PropertyKeys";
 
+            var categorySearchParam = new TextSearchParameter { SearchMethod = TextSearchMethod.Equals, Value = category };
+
             var results = await elasticClient
                 .SearchAsync<Product>(search => search
-                    .Query(query =>
-                    {
-                        return GetTextQuery(query, p => p.Category, new TextSearchParameter { SearchMethod = TextSearchMethod.Equals, Value = category });
-                    })
-                    .Aggregations(aggs =>
-                    {
-                        return aggs.Terms(aggregationName, a => a.Field("properties.key.keyword").Size(250));
-                    })
+                    .Query(query => GetTextQuery(query, p => p.Category, categorySearchParam))
+                    .Aggregations(aggs => aggs.Terms(aggregationName, a => a.Field("properties.key.keyword").Size(250)))
                     .Size(0));
 
             if (results.Aggregations.TryGetValue(aggregationName, out var aggr) && aggr is BucketAggregate bucketAggregate)
             {
-                var res = bucketAggregate.Items.Cast<KeyedBucket<object>>().Select(b => (string)b.Key).ToList();
-
-                return res;
+                return bucketAggregate.Items.Cast<KeyedBucket<object>>().Select(b => (string)b.Key).ToList();
             }
 
             return Enumerable.Empty<string>();
