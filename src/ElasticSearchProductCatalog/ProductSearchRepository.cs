@@ -72,6 +72,32 @@ namespace ElasticSearchProductCatalog
             return results.Documents;
         }
 
+        public async Task<IEnumerable<string>> GetPropertiesByCategoryAsync(string category)
+        {
+            const string aggregationName = "PropertyKeys";
+
+            var results = await elasticClient
+                .SearchAsync<Product>(search => search
+                    .Query(query =>
+                    {
+                        return GetTextQuery(query, p => p.Category, new TextSearchParameter { SearchMethod = TextSearchMethod.Equals, Value = category });
+                    })
+                    .Aggregations(aggs =>
+                    {
+                        return aggs.Terms(aggregationName, a => a.Field("properties.key.keyword").Size(250));
+                    })
+                    .Size(0));
+
+            if (results.Aggregations.TryGetValue(aggregationName, out var aggr) && aggr is BucketAggregate bucketAggregate)
+            {
+                var res = bucketAggregate.Items.Cast<KeyedBucket<object>>().Select(b => (string)b.Key).ToList();
+
+                return res;
+            }
+
+            return Enumerable.Empty<string>();
+        }
+
         private QueryContainer GetTextQuery(QueryContainerDescriptor<Product> query, Expression<Func<Product, string>> propertySelector, TextSearchParameter parameter)
         {
             if (parameter.SearchMethod == TextSearchMethod.Equals)

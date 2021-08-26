@@ -16,6 +16,8 @@ namespace ElasticSearchProductCatalog
                 await repo.InsertAsync(product);
             }
 
+            await repo.GetPropertiesByCategoryAsync("Graphics cards");
+
             while (true)
             {
                 Console.Clear();
