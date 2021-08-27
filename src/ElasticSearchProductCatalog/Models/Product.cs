@@ -15,5 +15,7 @@ namespace ElasticSearchProductCatalog.Models
         public decimal Price { get; set; }
 
         public List<ProductProperty> Properties { get; set; } = new();
+
+        public Dictionary<string, string> PropertyLookup { get; set; } = new();
     }
 }

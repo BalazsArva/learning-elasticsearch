@@ -33,6 +33,14 @@ namespace ElasticSearchProductCatalog
 
         public async Task InsertAsync(Product product)
         {
+            // TODO: Do this more properly (persistence model + domain model)
+            product.Properties.Clear();
+
+            foreach (var (propertyKey, properyValue) in product.PropertyLookup)
+            {
+                product.Properties.Add(new ProductProperty { Key = propertyKey, Value = properyValue });
+            }
+
             await elasticClient.IndexDocumentAsync(product);
         }
 

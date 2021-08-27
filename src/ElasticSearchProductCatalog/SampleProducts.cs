@@ -14,18 +14,18 @@ namespace ElasticSearchProductCatalog
                 IsActive = true,
                 Price = 399.99m,
                 Title = "ASUS TUF Gaming GeForce RTX 3060 Ti 8GB GDDR6",
-                Properties =
+                PropertyLookup =
                 {
-                    new ProductProperty { Key = "Memory size", Value = "8 GB" },
-                    new ProductProperty { Key = "Memory bandwidth", Value = "256 bit" },
-                    new ProductProperty { Key = "Memory type", Value = "GDDR6" },
-                    new ProductProperty { Key = "Board manufacturer", Value = "ASUS" },
-                    new ProductProperty { Key = "Interface", Value = "PCI Express 4.0" },
-                    new ProductProperty { Key = "GPU type", Value = "NVidia GeForce RTX 3060 Ti" },
-                    new ProductProperty { Key = "GPU boost clock", Value = "1695 MHz" },
-                    new ProductProperty { Key = "CUDA cores", Value = "4864" },
-                    new ProductProperty { Key = "HDMI 2.1 ports", Value = "2" },
-                    new ProductProperty { Key = "DisplayPort 1.4a ports", Value = "3" },
+                    ["Memory size"] = "8 GB",
+                    ["Memory bandwidth"] = "256 bit",
+                    ["Memory type"] = "GDDR6",
+                    ["Board manufacturer"] = "ASUS",
+                    ["Interface"] = "PCI Express 4.0",
+                    ["GPU type"] = "NVidia GeForce RTX 3060 Ti",
+                    ["GPU boost clock"] = "1695 MHz",
+                    ["CUDA cores"] = "4864",
+                    ["HDMI 2.1 ports"] = "2",
+                    ["DisplayPort 1.4a ports"] = "3",
                 }
             };
 
@@ -36,18 +36,18 @@ namespace ElasticSearchProductCatalog
                 IsActive = true,
                 Price = 379.99m,
                 Title = "EVGA GeForce RTX 3060 12GB XC Gaming",
-                Properties =
+                PropertyLookup =
                 {
-                    new ProductProperty { Key = "Memory size", Value = "12 GB" },
-                    new ProductProperty { Key = "Memory bandwidth", Value = "192 bit" },
-                    new ProductProperty { Key = "Memory type", Value = "GDDR6" },
-                    new ProductProperty { Key = "Board manufacturer", Value = "EVGA" },
-                    new ProductProperty { Key = "Interface", Value = "PCI Express 4.0" },
-                    new ProductProperty { Key = "GPU type", Value = "NVidia GeForce RTX 3060" },
-                    new ProductProperty { Key = "GPU boost clock", Value = "1882 MHz" },
-                    new ProductProperty { Key = "CUDA cores", Value = " 3584" },
-                    new ProductProperty { Key = "HDMI 2.1 ports", Value = "2" },
-                    new ProductProperty { Key = "DisplayPort 1.4a ports", Value = "3" },
+                    ["Memory size"] = "12 GB",
+                    ["Memory bandwidth"] = "192 bit",
+                    ["Memory type"] = "GDDR6",
+                    ["Board manufacturer"] = "EVGA",
+                    ["Interface"] = "PCI Express 4.0",
+                    ["GPU type"] = "NVidia GeForce RTX 3060",
+                    ["GPU boost clock"] = "1882 MHz",
+                    ["CUDA cores"] = " 3584",
+                    ["HDMI 2.1 ports"] = "2",
+                    ["DisplayPort 1.4a ports"] = "3",
                 }
             };
 
@@ -58,13 +58,13 @@ namespace ElasticSearchProductCatalog
                 IsActive = true,
                 Price = 272.99m,
                 Title = "AMD Ryzen 5 5600x",
-                Properties =
+                PropertyLookup =
                 {
-                    new ProductProperty { Key = "Cores", Value = "6" },
-                    new ProductProperty { Key = "Threads", Value = "12" },
-                    new ProductProperty { Key = "Clock speed", Value = "4.6 GHz" },
-                    new ProductProperty { Key = "Socket", Value = "AM4" },
-                    new ProductProperty { Key = "TDP", Value = "65 W" },
+                    ["Cores"] = "6",
+                    ["Threads"] = "12",
+                    ["Clock speed"] = "4.6 GHz",
+                    ["Socket"] = "AM4",
+                    ["TDP"] = "65 W",
                 },
             };
 
@@ -75,13 +75,13 @@ namespace ElasticSearchProductCatalog
                 IsActive = true,
                 Price = 339.99m,
                 Title = "Intel Core i7-11700",
-                Properties =
+                PropertyLookup =
                 {
-                    new ProductProperty { Key = "Cores", Value = "8" },
-                    new ProductProperty { Key = "Threads", Value = "16" },
-                    new ProductProperty { Key = "Clock speed", Value = "4.9 GHz" },
-                    new ProductProperty { Key = "Socket", Value = "LGA 1200" },
-                    new ProductProperty { Key = "TDP", Value = "65 W" },
+                    ["Cores"] = "8",
+                    ["Threads"] = "16",
+                    ["Clock speed"] = "4.9 GHz",
+                    ["Socket"] = "LGA 1200",
+                    ["TDP"] = "65 W",
                 },
             };
         }
