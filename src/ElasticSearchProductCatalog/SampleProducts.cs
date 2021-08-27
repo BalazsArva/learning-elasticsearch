@@ -67,6 +67,23 @@ namespace ElasticSearchProductCatalog
                     new ProductProperty { Key = "TDP", Value = "65 W" },
                 },
             };
+
+            yield return new Product
+            {
+                Category = "CPUs",
+                Id = "e752547c-c2de-4b39-9237-8e481e3a757c",
+                IsActive = true,
+                Price = 339.99m,
+                Title = "Intel Core i7-11700",
+                Properties =
+                {
+                    new ProductProperty { Key = "Cores", Value = "8" },
+                    new ProductProperty { Key = "Threads", Value = "16" },
+                    new ProductProperty { Key = "Clock speed", Value = "4.9 GHz" },
+                    new ProductProperty { Key = "Socket", Value = "LGA 1200" },
+                    new ProductProperty { Key = "TDP", Value = "65 W" },
+                },
+            };
         }
     }
 }
